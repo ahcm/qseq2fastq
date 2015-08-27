@@ -17,7 +17,6 @@ It was initially based on qseq2fastq.pl: http://sourceforge.net/projects/qseq2fa
 
 ** DOWNLOAD
 
-http://pubshare.genzentrum.lmu.de/scientific_computing/software/qseq2fastq-andy/
 http://www.splashground.de/software/qseq2fastq-andy/qseq2fastq-andy-3.0.tar.gz
 
 
@@ -38,7 +37,8 @@ e.g. /usr/local/bin in this case.
 
 * BUGS
 
-Please do report them to Andreas Hauser <hauser@genzentrum.lmu.de>
+Please do report them to Andreas Hauser <andy@splashground.de>
+or github: https://github.com/ahcm/qseq2fastq/issues
 
 
 * USAGE

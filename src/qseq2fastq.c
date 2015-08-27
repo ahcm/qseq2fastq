@@ -1,6 +1,6 @@
 /*
  * qseq2fastq converts Illumina qseq files to fastq format.
- * Written by Andreas Hauser <hauser@genzentrum.lmu.de>.
+ * Written by Andreas Hauser <hauser@genzentrum.lmu.de>, <andy@splashground.de>.
  * Version 1.0 was based on qseq2fastq.pl from http://qseq2fastq.sourceforge.net/.
  * License: GPL Version 3, http://www.gnu.org/licenses/gpl-3.0-standalone.html
  *
@@ -127,7 +127,7 @@ void usage()
                         "\t\t\t\tNo spaces! Barcode matches when it is a valid prefix of the barcode read.");
   puts("\t-o OUTPUT_BASE\t\tprefix used for constructing output filenames");
   puts("\t-h\t\t\tshows this message");
-  puts("\nReport bugs to Andreas hauser <hauser@genzentrum.lmu.de>.");
+  puts("\nReport bugs to Andreas hauser <andy@splashground.de>.");
 }
 
 

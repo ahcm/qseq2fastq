@@ -1,0 +1,81 @@
+* ABOUT qseq2fastq
+
+qseq2fastq converst Illumina Deep Sequencing Qseq files to more commonly
+used FastQ format. This is mostly a transformation of selected columns
+of the Qseq file. The Phred score is also transformed. Without -a option
+reads the sequencer marks a bad are filtered out. Usually I would recommend
+using -a and handling the quality later in the pipeline.
+It is implemented in C for speed.
+
+Written and designed by Andreas Hauser <hauser@genzentrum.lmu.de>, <hauser@splashground.de>.
+
+It was initially based on qseq2fastq.pl: http://sourceforge.net/projects/qseq2fastq/
+
+
+* INSTALLATION
+
+
+** DOWNLOAD
+
+http://pubshare.genzentrum.lmu.de/scientific_computing/software/qseq2fastq-andy/
+http://www.splashground.de/software/qseq2fastq-andy/qseq2fastq-andy-3.0.tar.gz
+
+
+** COMPILE
+
+$ make
+
+Note Linux x86_64 (Scientific Linux 6) is already containedprecompiled.
+
+
+** INSTALL
+
+$ make install INSTALL_PREFIX=/usr/local
+
+where /usr/local is the path where the binary will be installed in the subfolder bin,
+e.g. /usr/local/bin in this case.
+
+
+* BUGS
+
+Please do report them to Andreas Hauser <hauser@genzentrum.lmu.de>
+
+
+* USAGE
+
+$ qseq2fastq -a s_1_1_*_qseq.txt > s_1_1.fastq
+
+But in addition it can now do multiplexing. As you can see this much more complex.
+E.g.
+$ qseq2fastq -a -b ACTTGAA,GCCAATA,TGACCAA,ACAGTGA,CAGATCA -o out/s_1_1_0010_ -d s_1_2_0010_qseq.txt
+s_1_1_0010_qseq.txt > out/s_1_1_0010_MISMATCH.fastq
+
+Where
+
+ -b gives the barcodes (the ones in the barcode lane, so be careful about
+    inversion from your adapter sequences etc.)
+
+ -d gives the qseq file with the barcode reads
+
+ -o gives the prefix for the output files (one for each barcode).
+    If the output files exist output will be appended.
+    The prefix can like above contain a directory but that directory must exist.
+
+The reads without a matching barcode are written to standard out so they can either
+be discarded (> /dev/null) or like above be written to file (out/s_1_1_0010_MISMATCH.fastq).
+
+It's easy to convert a tile like this as each tile has its own file.
+To convert a whole lane one can either concatenate the files:
+
+$ cat s_1_1_*_qseq.txt > s_1_1.qseq
+
+$ cat s_1_2_*_qseq.txt > s_1_2.qseq
+
+Since the star is usually expanded in alphabetical order (by your shell (e.g. zsh)
+so be careful if you don't use such a shell) this will preserve the order and the
+lines in the both files will correspond.
+
+Another way is to use a loop and the appending feature of qseq2fastq.
+$ for i in `seq -w 1 120`; do  qseq2fastq -a -b ACTTGAA,GCCAATA,TGACCAA,ACAGTGA,CAGATCA -o
+out/s_1_1_ -d s_1_2_0${i}_qseq.txt  s_1_1_0${i}_qseq.txt >>  out/s_1_1_MISMATCH.fastq; done
+
